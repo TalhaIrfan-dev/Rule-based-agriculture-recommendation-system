@@ -166,16 +166,20 @@ The system design is based on **static, expert-approved datasets**, including:
 
 ## 🎨 UI Prototype & Demo
 
-A **static UI prototype** has been developed to visually represent the system interface defined in the **Software Design Specification (SDS)**.
+A **static UI prototype** has been developed to visually represent the system interface.
 
 🔗 **Live UI Prototype (GitHub Pages)**  
 https://talhairfan-dev.github.io/Rule-based-agriculture-recommendation-system/
 
 ### Demonstrated Screens
+- Login System
 - Crop recommendation interface  
 - Soil suitability evaluation  
 - Disease identification and treatment views  
-- Farmer-friendly dashboard layout  
+- Farmer-friendly dashboard layout
+- Market Forecast
+- Admin Interface
+- Responsive Design  
 
 > ⚠️ This is a **design-only prototype**. Backend services and databases are not implemented.
 
