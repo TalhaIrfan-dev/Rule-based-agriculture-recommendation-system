@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>DARS — UI Prototype</title>
+<link rel="icon" href="data:;base64,iVBORw0KGgo=">
+<style>
+  /* ====== Basic reset & typography ====== */
+  :root{
+    --bg:#f6f7fb; --card:#fff; --muted:#6b7280; --accent:#2b7a78;
+    --success:#0f9d58; --danger:#d9534f; --glass: rgba(43,122,120,0.06);
+    --max-width:1100px;
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; background:var(--bg); color:#0f172a; line-height:1.4;
+    display:flex; justify-content:center; padding:24px;
+  }
+
+  /* ======================= */
+  /* LOGIN PAGE              */
+  /* ======================= */
+  #login-page{
+    width:100%;
+    max-width:400px;
+    margin:auto;
+    padding:32px;
+    border-radius:12px;
+    background:var(--card);
+    box-shadow:0 8px 30px rgba(2,6,23,0.08);
+  }
+  #login-page h2{
+    margin-top:0;
+    text-align:center;
+    margin-bottom:12px;
+  }
+  #login-page .login-input{
+    width:100%;
+    padding:12px;
+    margin-bottom:10px;
+    border-radius:8px;
+    border:1px solid #e2e8f0;
+    font-size:14px;
+  }
+  #login-page .btn{ width:100%; margin-top:12px; }
+  #login-page .role-box{
+    margin-top:10px;
+    padding:10px;
+    background:#f1f5f9;
+    border-radius:8px;
+  }
+  /* END LOGIN PAGE */
+  /* ======================= */
+
+  .app{
+    width:100%; max-width:var(--max-width);
+    background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.9));
+    border-radius:12px; box-shadow:0 8px 30px rgba(2,6,23,0.08);
+    overflow:hidden; display:grid; grid-template-columns: 300px 1fr;
+    min-height:640px;
+  }
+  /* Left nav */
+  .sidebar{
+    background:linear-gradient(180deg,#0f172a,#12343a);
+    color:#fff; padding:18px;
+  }
+  .brand{font-weight:700; font-size:18px; letter-spacing:0.2px; margin-bottom:12px}
+  .sidebar p{color:rgba(255,255,255,0.85); margin:8px 0 18px}
+  .nav{display:flex; flex-direction:column; gap:8px}
+  .nav button{
+    background:transparent; border:none; color:inherit; text-align:left;
+    padding:10px 12px; border-radius:8px; cursor:pointer; width:100%;
+    font-size:14px;
+  }
+  .nav button.active{background:rgba(255,255,255,0.06); box-shadow:inset 0 1px 0 rgba(255,255,255,0.02)}
+  .small{font-size:13px; color:rgba(255,255,255,0.85)}
+  .sidebar .footer{margin-top:18px; font-size:13px; opacity:0.9}
+  /* Top header */
+  .main{
+    padding:22px; background:transparent;
+  }
+  header.top{
+    display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;
+  }
+  header h1{font-size:20px; margin:0}
+  header .user{color:var(--muted)}
+  /* Card */
+  .card{
+    background:var(--card); border-radius:10px; padding:18px; margin-bottom:16px; box-shadow:0 2px 8px rgba(11,22,39,0.04)
+  }
+  .grid{display:grid; gap:12px}
+  .grid.cols-2{grid-template-columns:1fr 1fr}
+  /* Forms */
+  label{display:block; font-size:13px; color:var(--muted); margin-bottom:6px}
+  input[type="text"], input[type="number"], select, textarea{
+    width:100%; padding:10px 12px; border-radius:8px; border:1px solid #e6eef3;
+    background:linear-gradient(180deg,#fff,#fbfdff);
+    font-size:14px; color:#081426; outline:none;
+  }
+  textarea{min-height:90px; resize:vertical}
+  .row{display:flex; gap:12px; align-items:center}
+  .btn{
+    background:var(--accent); color:#fff; border:none; padding:10px 14px; border-radius:8px;
+    cursor:pointer; font-weight:600; font-size:14px;
+  }
+  .btn.secondary{background:#eef2f2; color:#082; font-weight:600}
+  .muted{color:var(--muted); font-size:13px}
+  .table{width:100%; border-collapse:collapse; margin-top:8px}
+  .table th, .table td{padding:10px 8px; border-bottom:1px solid #f1f6f8; text-align:left}
+  .pill{display:inline-block; padding:6px 8px; border-radius:999px; background:var(--glass); font-size:13px}
+  .hint{font-size:13px; color:var(--muted)}
+  /* small screens */
+  @media (max-width:900px){
+    .app{grid-template-columns:1fr; min-height:100vh}
+    .sidebar{display:flex; gap:8px; overflow:auto; flex-direction:row; padding:12px}
+    .nav{flex-direction:row}
+    .nav button{white-space:nowrap}
+  }
+  /* Utility */
+  .center{display:flex; justify-content:center; align-items:center}
+  .right{display:flex; justify-content:flex-end}
+  .hidden{display:none}
+  .success{color:var(--success)}
+  .danger{color:var(--danger)}
+  /* small note */
+  .note{font-size:13px; color:var(--muted); margin-top:6px}
+</style>
+</head>
+<body>
+
+<!-- ======================= -->
+<!--         LOGIN PAGE      -->
+<!-- ======================= -->
+<div id="login-page">
+  <h2>DARS Login</h2>
+  <input id="login-name" class="login-input" placeholder="Full Name" required>
+  <div class="role-box">
+    <label><input type="radio" name="role" value="Farmer" checked> Farmer</label><br>
+    <label><input type="radio" name="role" value="Admin"> Admin</label>
+  </div>
+  <button class="btn" onclick="login()">Login</button>
+</div>
+<!-- ======================= -->
+<!-- END LOGIN PAGE          -->
+<!-- ======================= -->
+
+<!-- ======================= -->
+<!--       MAIN APP          -->
+<!-- ======================= -->
+<div id="app-container" class="app hidden" role="application" aria-label="Digital Agriculture Recommender System">
+  <!-- SIDEBAR -->
+  <aside class="sidebar" aria-hidden="false">
+    <div class="brand">DARS — Digital Agriculture Recommender</div>
+    <p class="small">Simple, rule-based recommendations for farmers. Use Demo mode to explore screens.</p>
+    <nav class="nav" aria-label="Main navigation">
+      <button id="nav-dashboard" class="active" onclick="show('dashboard')">Dashboard</button>
+      <button id="nav-recommend" onclick="show('recommendForm')">Get Recommendation</button>
+      <button id="nav-soil" onclick="show('soilForm')">Soil Suitability</button>
+      <button id="nav-disease" onclick="show('disease')">Disease Diagnosis</button>
+      <button id="nav-forecast" onclick="show('forecast')">Demand Forecast</button>
+      <button id="nav-admin" onclick="show('admin')" title="Admin screens">Admin Panel</button>
+    </nav>
+    <div class="footer" style="margin-top:18px; font-size:13px;">
+      <div class="muted">Logged in as <strong id="user-role">Farmer</strong></div>
+      <div class="note">Demo actions are local to your browser.</div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <header class="top">
+      <h1 id="screen-title">Dashboard</h1>
+      <div class="user">
+        <span id="user-name">Welcome</span>
+      </div>
+    </header>
+
+    <!-- Dashboard Screen -->
+    <section id="dashboard" class="card" role="region" aria-label="Dashboard">
+      <div class="grid cols-2">
+        <div>
+          <h3 style="margin:0 0 8px">Quick Actions</h3>
+          <div style="display:flex; gap:8px; flex-wrap:wrap">
+            <button class="btn" onclick="show('recommendForm')">Get Recommendation</button>
+            <button class="btn" onclick="show('soilForm')">Check Soil</button>
+            <button class="btn" onclick="show('disease')">Diagnose Disease</button>
+            <button class="btn" onclick="show('forecast')">Demand Forecast</button>
+          </div>
+
+          <div style="margin-top:14px;">
+            <h4 style="margin:8px 0 6px">Recent Recommendations</h4>
+            <table class="table" aria-labelledby="recent-recs">
+              <thead><tr><th>Crop</th><th>Date</th><th>Match</th></tr></thead>
+              <tbody id="recent-list">
+                <tr><td>Wheat</td><td>2025-10-14</td><td>88%</td></tr>
+                <tr><td>Mustard</td><td>2025-09-21</td><td>76%</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div>
+          <h3 style="margin:0 0 8px">Notifications</h3>
+          <div class="card" style="padding:12px">
+            <p class="muted">Active alerts & tips</p>
+            <ul>
+              <li class="hint">High disease risk for Wheat in your zone</li>
+              <li class="hint">Soil pH slightly acidic — lime recommended</li>
+              <li class="hint">Wheat market demand expected to rise next season</li>
+            </ul>
+          </div>
+
+          <h4 style="margin:12px 0 6px">Quick Stats</h4>
+          <div style="display:flex; gap:8px; margin-top:6px;">
+            <div class="card" style="flex:1; text-align:center">
+              <div class="pill">5 Recs</div>
+              <div class="note">Total recommendations</div>
+            </div>
+            <div class="card" style="flex:1; text-align:center">
+              <div class="pill">12 Acres</div>
+              <div class="note">Avg. farm size</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recommendation Form -->
+    <section id="recommendForm" class="card hidden" role="region" aria-label="Recommendation Form">
+      <h2>Crop Recommendation</h2>
+      <form id="rec-form" onsubmit="handleRecommend(event)">
+        <div class="grid cols-2">
+          <div>
+            <label for="region">Region</label>
+            <select id="region" required>
+              <option value="Punjab">Punjab</option>
+              <option value="Sindh">Sindh</option>
+              <option value="Balochistan">Balochistan</option>
+            </select>
+          </div>
+          <div>
+            <label for="season">Season</label>
+            <select id="season" required>
+              <option>Rabi</option>
+              <option>Kharif</option>
+              <option>Zaid</option>
+            </select>
+          </div>
+          <div>
+            <label for="soilType">Soil Type</label>
+            <select id="soilType" required>
+              <option>Loamy</option>
+              <option>Clay</option>
+              <option>Sandy</option>
+              <option>Peaty</option>
+            </select>
+          </div>
+          <div>
+            <label for="landArea">Land Area (acres)</label>
+            <input id="landArea" type="number" min="0" step="0.1" value="5" required>
+          </div>
+          <div style="grid-column:1/-1">
+            <label for="notes">Special Notes (optional)</label>
+            <textarea id="notes" placeholder="soil test notes, irrigation, etc."></textarea>
+          </div>
+        </div>
+
+        <div style="margin-top:12px" class="row">
+          <button class="btn" type="submit">Get Recommendation</button>
+          <button type="button" class="btn secondary" onclick="show('dashboard')">Cancel</button>
+          <div id="rec-loading" class="note" style="margin-left:auto; display:none">Processing...</div>
+        </div>
+      </form>
+
+      <div id="rec-result" class="card hidden" style="margin-top:12px">
+        <h3>Recommended Crops</h3>
+        <div id="rec-list"></div>
+        <div style="margin-top:8px">
+          <button class="btn" onclick="downloadRec()">Download Recommendation</button>
+          <button class="btn secondary" onclick="show('recommendForm')">New Request</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Soil Form -->
+    <section id="soilForm" class="card hidden" aria-label="Soil Form">
+      <h2>Soil–Crop Suitability Check</h2>
+      <form id="soil-form" onsubmit="handleSoil(event)">
+        <div class="grid cols-2">
+          <div>
+            <label for="soilType2">Soil Type</label>
+            <select id="soilType2">
+              <option>Loamy</option><option>Clay</option><option>Sandy</option><option>Peaty</option>
+            </select>
+          </div>
+          <div>
+            <label for="ph">pH Level</label>
+            <input id="ph" type="number" step="0.1" min="3" max="10" value="6.8">
+          </div>
+          <div>
+            <label for="n">Nitrogen (ppm)</label>
+            <input id="n" type="number" value="20">
+          </div>
+          <div>
+            <label for="p">Phosphorus (ppm)</label>
+            <input id="p" type="number" value="15">
+          </div>
+          <div>
+            <label for="k">Potassium (ppm)</label>
+            <input id="k" type="number" value="180">
+          </div>
+        </div>
+        <div style="margin-top:12px" class="row">
+          <button class="btn">Check Suitability</button>
+          <button type="button" class="btn secondary" onclick="show('dashboard')">Back</button>
+        </div>
+      </form>
+
+      <div id="soil-result" class="card hidden" style="margin-top:12px">
+        <h3>Suitable Crops</h3>
+        <div id="suitable-list"></div>
+      </div>
+    </section>
+
+    <!-- Disease Screen -->
+    <section id="disease" class="card hidden" aria-label="Disease Diagnosis">
+      <h2>Disease Diagnosis</h2>
+      <form id="disease-form" onsubmit="handleDisease(event)">
+        <div class="grid cols-2">
+          <div>
+            <label for="dCrop">Select Crop</label>
+            <select id="dCrop"><option>Wheat</option><option>Rice</option><option>Mustard</option></select>
+          </div>
+          <div>
+            <label>Symptoms (select)</label>
+            <div style="display:flex; gap:8px; flex-wrap:wrap">
+              <label><input type="checkbox" name="sym" value="yellow"> Yellowing</label>
+              <label><input type="checkbox" name="sym" value="brown"> Brown spots</label>
+              <label><input type="checkbox" name="sym" value="wilting"> Wilting</label>
+              <label><input type="checkbox" name="sym" value="powder"> White powder</label>
+            </div>
+          </div>
+          <div style="grid-column:1/-1">
+            <label for="photo">Upload Photo (optional)</label>
+            <input id="photo" type="file" accept="image/*">
+          </div>
+        </div>
+
+        <div style="margin-top:12px" class="row">
+          <button class="btn">Diagnose</button>
+          <button type="button" class="btn secondary" onclick="show('dashboard')">Back</button>
+        </div>
+      </form>
+
+      <div id="disease-result" class="card hidden" style="margin-top:12px">
+        <h3>Diagnosis</h3>
+        <div id="diseaseres"></div>
+        <div style="margin-top:8px" class="note">If the diagnosis is uncertain, the case may be forwarded to an agronomist for review.</div>
+      </div>
+    </section>
+
+    <!-- Forecast -->
+    <section id="forecast" class="card hidden" aria-label="Demand Forecast">
+      <h2>Seasonal Demand Forecast</h2>
+      <form id="forecast-form" onsubmit="handleForecast(event)">
+        <div class="grid cols-2">
+          <div>
+            <label for="fSeason">Season</label>
+            <select id="fSeason"><option>Rabi</option><option>Kharif</option><option>Zaid</option></select>
+          </div>
+          <div>
+            <label for="fRegion">Region</label>
+            <select id="fRegion"><option>Punjab</option><option>Sindh</option></select>
+          </div>
+        </div>
+        <div style="margin-top:12px" class="row">
+          <button class="btn">Generate Forecast</button>
+          <button type="button" class="btn secondary" onclick="show('dashboard')">Back</button>
+        </div>
+      </form>
+
+      <div id="forecast-result" class="card hidden" style="margin-top:12px">
+        <h3>Demand Results</h3>
+        <table class="table" id="forecast-table">
+          <thead><tr><th>Crop</th><th>Forecast</th><th>Trend</th></tr></thead>
+          <tbody><tr><td>Wheat</td><td>High</td><td>Rising</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ADMIN PANEL -->
+    <section id="admin" class="card hidden" aria-label="Admin Panel">
+      <h2>Admin Panel</h2>
+      <div style="display:flex; gap:12px; flex-wrap:wrap; margin-bottom:12px">
+        <button class="btn" onclick="showAdminTab('crops')">Manage Crops</button>
+        <button class="btn" onclick="showAdminTab('rules')">Edit Rules</button>
+        <button class="btn" onclick="showAdminTab('users')">Users</button>
+      </div>
+
+      <div id="admin-crops" class="card">
+        <h3>Crop Management</h3>
+        <form id="crop-form" onsubmit="handleCropSave(event)">
+          <div class="grid cols-2">
+            <div><label for="crop-name">Crop Name</label><input id="crop-name" required></div>
+            <div><label for="crop-soil">Suitable Soil</label><input id="crop-soil"></div>
+            <div><label for="crop-season">Season</label><input id="crop-season"></div>
+            <div><label for="crop-nut">Nutrient Needs</label><input id="crop-nut"></div>
+          </div>
+          <div style="margin-top:10px"><button class="btn">Save Crop</button></div>
+        </form>
+
+        <h4 style="margin-top:12px">Existing Crops</h4>
+        <table class="table" id="crop-table">
+          <thead><tr><th>Crop</th><th>Soil</th><th>Season</th></tr></thead>
+          <tbody><tr><td>Wheat</td><td>Loamy</td><td>Rabi</td></tr></tbody>
+        </table>
+      </div>
+
+      <div id="admin-rules" class="card hidden">
+        <h3>Rule Editor</h3>
+        <form id="rule-form" onsubmit="handleRuleSave(event)">
+          <label for="rule-text">Rule (IF ... THEN ...)</label>
+          <textarea id="rule-text">IF SoilType='Loamy' AND Season='Rabi' THEN Recommend='Wheat'</textarea>
+          <div style="margin-top:8px"><button class="btn">Save Rule</button></div>
+        </form>
+        <h4 style="margin-top:12px">Active Rules</h4>
+        <ul id="rule-list"><li>IF SoilType='Loamy' AND Season='Rabi' → Recommend: Wheat</li></ul>
+      </div>
+
+      <div id="admin-users" class="card hidden">
+        <h3>Users</h3>
+        <table class="table">
+          <thead><tr><th>Name</th><th>Role</th><th>Last login</th></tr></thead>
+          <tbody><tr><td>Ali Khan</td><td>Farmer</td><td>Today</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+  // LOGIN HANDLER
+  function login(){
+    const name = document.getElementById("login-name").value.trim();
+    const role = document.querySelector("input[name='role']:checked").value;
+
+    if(!name){ alert("Enter your name"); return; }
+
+    // Set UI
+    document.getElementById("user-name").textContent = "Welcome, " + name;
+    document.getElementById("user-role").textContent = role;
+
+    // Hide login, show app
+    document.getElementById("login-page").classList.add("hidden");
+    document.getElementById("app-container").classList.remove("hidden");
+
+    // Adjust access
+    document.getElementById("nav-admin").style.display = (role === "Admin") ? "block" : "none";
+
+    show("dashboard");
+  }
+
+  // Simple view switching
+  const sections = ['dashboard','recommendForm','soilForm','disease','forecast','admin'];
+  function show(id){
+    sections.forEach(s=>document.getElementById(s).classList.add('hidden'));
+    document.getElementById(id).classList.remove('hidden');
+    document.getElementById('screen-title').textContent = id === 'dashboard' ? 'Dashboard' : document.querySelector('#nav-'+id) ? document.querySelector('#nav-'+id).textContent : id.charAt(0).toUpperCase()+id.slice(1);
+    // highlight nav
+    document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
+    const navbutton = document.querySelector(`#nav-${id}`);
+    if(navbutton) navbutton.classList.add('active');
+  }
+
+  // Admin tabs
+  function showAdminTab(tab){
+    ['admin-crops','admin-rules','admin-users'].forEach(id=>document.getElementById(id).classList.add('hidden'));
+    document.getElementById('admin-'+tab).classList.remove('hidden');
+  }
+
+  // Mock recommendation logic (rule-based demo)
+  function handleRecommend(e){
+    e.preventDefault();
+    document.getElementById('rec-loading').style.display='block';
+    setTimeout(()=>{
+      document.getElementById('rec-loading').style.display='none';
+      const soil = document.getElementById('soilType').value;
+      const season = document.getElementById('season').value;
+      // simple mapping
+      const recs = recommendMock(soil, season);
+      const list = recs.map((r,i)=>`<div style="padding:8px 0"><strong>${i+1}. ${r.name}</strong> — ${r.reason} <div class="hint">Match: ${r.match}</div></div>`).join('');
+      document.getElementById('rec-list').innerHTML = list;
+      document.getElementById('rec-result').classList.remove('hidden');
+      document.getElementById('rec-form').scrollIntoView({behavior:'smooth'});
+      // add to recent
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${recs[0].name}</td><td>${new Date().toISOString().slice(0,10)}</td><td>${recs[0].match}</td>`;
+      document.getElementById('recent-list').prepend(tr);
+    },800);
+  }
+
+  function recommendMock(soil, season){
+    // very simplified rule-based demo
+    const rules = [
+      {name:'Wheat',soil:['Loamy','Clay'],season:['Rabi'],match:'88%',reason:'High market demand & good soil fit'},
+      {name:'Mustard',soil:['Loamy'],season:['Rabi'],match:'76%',reason:'Suitable for season'},
+      {name:'Barley',soil:['Clay','Sandy'],season:['Rabi','Kharif'],match:'72%',reason:'Tolerant to clay soil'}
+    ];
+    // order by match of rules
+    let out = rules.filter(r=>r.soil.includes(soil) && r.season.includes(season));
+    if(!out.length) out = rules.slice(0,2);
+    return out;
+  }
+
+  // Soil check
+  function handleSoil(e){
+    e.preventDefault();
+    const soilType = document.getElementById('soilType2').value;
+    const ph = parseFloat(document.getElementById('ph').value||7);
+    const possible = {Loamy:['Wheat','Mustard','Gram'], Clay:['Barley','Wheat'], Sandy:['Cotton','Millet']};
+    const list = (possible[soilType]||['Wheat','Barley']).map(s=>`<div style="padding:6px 0"><strong>${s}</strong> — Suitable</div>`).join('');
+    document.getElementById('suitable-list').innerHTML = list;
+    document.getElementById('soil-result').classList.remove('hidden');
+  }
+
+  // Disease
+  function handleDisease(e){
+    e.preventDefault();
+    const crop = document.getElementById('dCrop').value;
+    const syms = Array.from(document.querySelectorAll('input[name="sym"]:checked')).map(i=>i.value);
+    const likely = diagnoseMock(crop, syms);
+    document.getElementById('diseaseres').innerHTML = `<p><strong>Likely:</strong> ${likely.disease}</p><p><strong>Treatment:</strong> ${likely.treatment}</p>`;
+    document.getElementById('disease-result').classList.remove('hidden');
+  }
+  function diagnoseMock(crop, syms){
+    // simple mapping
+    if(syms.includes('brown') && syms.includes('yellow')) return {disease:'Blight', treatment:'Apply fungicide twice weekly & remove infected leaves'};
+    if(syms.includes('powder')) return {disease:'Powdery Mildew', treatment:'Use recommended fungicide; increase airflow'};
+    return {disease:'Not sure', treatment:'Collect sample and consult agronomist'};
+  }
+
+  // Forecast
+  function handleForecast(e){
+    e.preventDefault();
+    // show demo table
+    const rows = [
+      {crop:'Wheat',d:'High',t:'Rising'},
+      {crop:'Rice',d:'Medium',t:'Stable'},
+      {crop:'Cotton',d:'Low',t:'Declining'}
+    ];
+    const tbody = rows.map(r=>`<tr><td>${r.crop}</td><td>${r.d}</td><td>${r.t}</td></tr>`).join('');
+    document.querySelector('#forecast-table tbody').innerHTML = tbody;
+    document.getElementById('forecast-result').classList.remove('hidden');
+  }
+
+  // Admin forms
+  function handleCropSave(e){
+    e.preventDefault();
+    const name = document.getElementById('crop-name').value || 'Unnamed';
+    const soil = document.getElementById('crop-soil').value || '-';
+    const season = document.getElementById('crop-season').value || '-';
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${name}</td><td>${soil}</td><td>${season}</td>`;
+    document.getElementById('crop-table').querySelector('tbody').appendChild(tr);
+    alert('Crop saved (demo).');
+    e.target.reset();
+  }
+
+  function handleRuleSave(e){
+    e.preventDefault();
+    const txt = document.getElementById('rule-text').value;
+    const li = document.createElement('li'); li.textContent = txt;
+    document.getElementById('rule-list').appendChild(li);
+    alert('Rule saved (demo).');
+  }
+
+  function downloadRec(){
+    const el = document.getElementById('rec-list').innerText || 'Recommendation';
+    const blob = new Blob([el], {type:'text/plain'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url; a.download='recommendation.txt';
+    a.click(); URL.revokeObjectURL(url);
+  }
+</script>
+</body>
+</html>
