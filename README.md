@@ -97,7 +97,8 @@ Most existing digital agriculture platforms focus primarily on **marketplaces** 
 📦 Rule-based-agriculture-recommendation-system
 ├── 📁 docs
 |   ├── 📄 SRS - Digital Agriculture Recommender System.docx
-|   └── 📄 SDS - Digital Agriculture Recommender System.docx
+|   ├── 📄 SDS - Digital Agriculture Recommender System.docx
+|   └── index.html  # in order to host on github
 ├── 📁 UI-Prototype
 |   └── index.html
 ├── 📄 README.md
