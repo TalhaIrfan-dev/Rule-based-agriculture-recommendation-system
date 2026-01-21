@@ -8,20 +8,20 @@ A **web-based, rule-driven agriculture recommendation system** that assists farm
 ## 📑 Table of Contents
 
 1. [📖 Overview](#-overview)
-2. [❗ Problem Statement](#problem-statement)
-3. [🎯 Project Objectives](#project-objectives)
-4. [🧩 Project Scope](#project-scope)
-5. [📂 Repository Structure](#repository-structure)
-6. [📊 Dataset](#dataset)
-7. [🛠️ Tools & Technologies](#tools--technologies)
-8. [⚙️ Methods / System Approach](#methods--system-approach)
-9. [💡 Key Insights](#key-insights)
-10. [🎨 UI Prototype & Demo](#ui-prototype--demo)
-11. [▶️ How to Run This Project](#how-to-run-this-project)
-12. [✅ Results & Conclusion](#results--conclusion)
-13. [🚀 Future Work](#future-work)
+2. [❗ Problem Statement](#-problem-statement)
+3. [🎯 Project Objectives](#-project-objectives)
+4. [🧩 Project Scope](#-project-scope)
+5. [📂 Repository Structure](#-repository-structure)
+6. [📊 Dataset](#-dataset)
+7. [🛠️ Tools & Technologies](#-tools--technologies)
+8. [⚙️ Methods / System Approach](#-methods--system-approach)
+9. [💡 Key Insights](#-key-insights)
+10. [🎨 UI Prototype & Demo](#-ui-prototype--demo)
+11. [▶️ How to Run This Project](#-how-to-run-this-project)
+12. [✅ Results & Conclusion](#-results--conclusion)
+13. [🚀 Future Work](#-future-work)
 14. [👤 Author](#-author)
-15. [⚠️ Disclaimer](#disclaimer)
+15. [⚠️ Disclaimer](#-disclaimer)
 
 ---
 
