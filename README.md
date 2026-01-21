@@ -169,7 +169,7 @@ The system design is based on **static, expert-approved datasets**, including:
 A **static UI prototype** has been developed to visually represent the system interface defined in the **Software Design Specification (SDS)**.
 
 🔗 **Live UI Prototype (GitHub Pages)**  
-
+https://talhairfan-dev.github.io/Rule-based-agriculture-recommendation-system/
 
 ### Demonstrated Screens
 - Crop recommendation interface  
